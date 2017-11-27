@@ -33,6 +33,7 @@ d_idx = 0 # dont care
 idx = 0
 box_idx = 0
 for annotation in annotations:
+    print annotation
     annotation = annotation.strip().split(' ')
     #image path
     im_path = annotation[0]
@@ -114,11 +115,11 @@ for annotation in annotations:
             delta_x = npr.randint(-w * 0.2, w * 0.2)
             delta_y = npr.randint(-h * 0.2, h * 0.2)
             #show this way: nx1 = max(x1+w/2-size/2+delta_x)
-            nx1 = max(x1 + w / 2 + delta_x - size / 2, 0)
+            nx1 = int(round(max(x1 + w / 2 + delta_x - size / 2, 0)))
             #show this way: ny1 = max(y1+h/2-size/2+delta_y)
-            ny1 = max(y1 + h / 2 + delta_y - size / 2, 0)
-            nx2 = nx1 + size
-            ny2 = ny1 + size
+            ny1 = int(round(max(y1 + h / 2 + delta_y - size / 2, 0)))
+            nx2 = int(round(nx1 + size))
+            ny2 = int(round(ny1 + size))
 
             if nx2 > width or ny2 > height:
                 continue 
@@ -129,6 +130,7 @@ for annotation in annotations:
             offset_x2 = (x2 - nx2) / float(size)
             offset_y2 = (y2 - ny2) / float(size)
             #crop
+            #print ny1, ny2, nx1, nx2
             cropped_im = img[ny1 : ny2, nx1 : nx2, :]
             #resize
             resized_im = cv2.resize(cropped_im, (12, 12), interpolation=cv2.INTER_LINEAR)
