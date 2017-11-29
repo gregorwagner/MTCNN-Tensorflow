@@ -64,7 +64,8 @@ def GenerateData(ftxt, output,net,argument=False):
     for (imgPath, bbox, landmarkGt) in data:
         #print imgPath
         F_imgs = []
-        F_landmarks = []        
+        F_landmarks = []     
+        imgPath = 'train/' + imgPath   
         img = cv2.imread(imgPath)
         assert(img is not None)
         img_h,img_w,img_c = img.shape
